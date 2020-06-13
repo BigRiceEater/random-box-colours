@@ -9,6 +9,19 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
+
+    <style>
+      #container {
+        display: flex;
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        margin: 20px;
+        border-radius: 15px;
+      }
+    </style>
   </head>
   <body>
     <label for="message-box">Messages:</label>
@@ -18,9 +31,7 @@
       rows="5"
       style="text-overflow: clip;"
     ></textarea>
-    <div class="box"></div>
-    <div class="box"></div>
-    <div class="box"></div>
+    <div id="container"></div>
   </body>
 
   <script>
@@ -31,39 +42,53 @@
     function log(msg) {
       const messageBox = $("#message-box");
       messageBox.append(`${new Date().toLocaleTimeString()}: ${msg}\n`);
-      const position = messageBox.get(0).scrollHeight
-      messageBox.scrollTop(position)
+      const position = messageBox.get(0).scrollHeight;
+      messageBox.scrollTop(position);
     }
 
     // alt. method but not as nice as jQuery
-    function logEx(msg){
+    function logEx(msg) {
       const messageBoxDom = document.getElementById("message-box");
-      messageBoxDom.innerHTML = messageBoxDom.innerHTML + `${new Date().toLocaleTimeString()}: ${msg}\n`;
+      messageBoxDom.innerHTML =
+        messageBoxDom.innerHTML +
+        `${new Date().toLocaleTimeString()}: ${msg}\n`;
       const position = messageBoxDom.scrollHeight;
-      messageBoxDom.scrollTop = position
+      messageBoxDom.scrollTop = position;
     }
 
-    function initBoxes(){
-      const boxes = $(".box");
-      log(`Found ${boxes.length} boxes`);
-      boxes.css({ backgroundColor: "red", width: "100px", height: "100px", margin : "20px" });
-      log('Set style for boxes');
-
-      boxes.click(function(){
-        log(`A box was clicked`)
-        randomBoxColor($(this))
-      })
+    function initBoxes() {
+      log("Creating boxes");
+      var boxes = $();
+      for (i = 0; i < 6; i++) {
+        boxes = boxes.add(createBox());
+      }
+      // Don't change DOM in loop multiple times
+      // Append exactly 1 time for efficiency
+      var container = $("#container");
+      container.append(boxes);
     }
 
-    function randomBoxColor(box){
-      box.css({backgroundColor : createRGBValues() })
+    function createBox() {
+      const box = $("<div>")
+        .addClass("box")
+        .click(function () {
+          randomBoxColor($(this));
+        });
+      randomBoxColor(box);
+      return box;
     }
 
-    function createRGBValues(){
-      const val = function(){ return Math.floor(Math.random() * 255) };
+    function randomBoxColor(box) {
+      box.css({ backgroundColor: createRGBValues() });
+    }
+
+    function createRGBValues() {
+      const val = function () {
+        return Math.floor(Math.random() * 255);
+      };
       const rgb = `rgb(${val()},${val()},${val()})`;
       log(`generated ` + rgb);
-      return rgb
+      return rgb;
     }
   </script>
 </html>
