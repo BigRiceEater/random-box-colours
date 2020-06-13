@@ -84,8 +84,10 @@
     }
 
     function randomBoxColor(box) {
-      // this function needs Jquery UI 
-      box.animate({ backgroundColor: createRGBValues() }, 'slow');
+      // this function needs Jquery UI
+      box
+        .effect("shake",{distance : 5})
+        .animate({ backgroundColor: createRGBValues() }, "slow");
     }
 
     function createRGBValues() {
