@@ -17,12 +17,14 @@
     <style>
       #container {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
       .box {
         width: 100px;
         height: 100px;
-        margin: 20px;
+        margin: 10px;
         border-radius: 15px;
         background-color: red;
       }
@@ -32,9 +34,8 @@
     <label for="message-box">Messages:</label>
     <textarea
       id="message-box"
-      cols="100"
       rows="5"
-      style="text-overflow: clip;"
+      style="text-overflow: clip; width: 100%;"
     ></textarea>
     <div id="container"></div>
   </body>
