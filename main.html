@@ -78,6 +78,7 @@
       const box = $("<div>")
         .addClass("box")
         .click(function () {
+          $(this).effect("shake", { distance: 5 });
           randomBoxColor($(this));
         });
       randomBoxColor(box);
@@ -86,9 +87,7 @@
 
     function randomBoxColor(box) {
       // this function needs Jquery UI
-      box
-        .effect("shake",{distance : 5})
-        .animate({ backgroundColor: createRGBValues() }, "slow");
+      box.animate({ backgroundColor: createRGBValues() }, "slow");
     }
 
     function createRGBValues() {
