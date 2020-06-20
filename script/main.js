@@ -1,0 +1,3 @@
+requirejs(['controller'], function(controller){
+
+})
